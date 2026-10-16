@@ -69,6 +69,8 @@
   .b-time { background:#eff6ff; color:#1e40af; }
   .diet { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; }
   .dietb { font-size:9.5px; font-weight:700; letter-spacing:.3px; padding:2px 7px; border-radius:8px; background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; }
+  .appl { display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
+  .applb { font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:9px; background:#fff7ed; color:#9a3412; border:1px solid #fed7aa; }
   .viewrecipe { margin-top:10px; font-size:13px; font-weight:700; color:var(--accent); cursor:pointer; }
   /* list headers / summary / pantry */
   .listsum { font-size:12px; font-weight:700; color:var(--navy); background:#eff6ff; border-radius:8px; padding:7px 12px; margin-bottom:6px; text-align:center; }
@@ -147,103 +149,140 @@ const CAT = { P:"Proteins", G:"Grains / Carbs", V:"Produce", F:"Pantry / Flavor"
 // recipes scaled for family of 5 (2 adults, teens 15/12, child 10) WITH leftovers
 const MEALS = [
   { id:"beefbowl", emoji:"🥩", photo:"meal-beefbowl.jpeg", title:"Beef & Veggie Rice Bowls", tags:["IRON","HIGH PROTEIN"],
-    nutri:{kcal:520, protein:38, iron:"high"}, diff:"Easy",
+    nutri:{kcal:520, protein:38, iron:"high"}, diff:"Easy", appliance:["Stovetop","Instant Pot"],
+    methods:{"Instant Pot":"Use Sauté mode to brown the beef and ginger, then add veg and tamari; sauté until tender. Cook the rice separately or in a prior pot batch."},
     body:"Ground beef browned in garlic-infused oil with ginger, scallion tops, tamari. Over brown rice/quinoa with zucchini, carrots, spinach, red pepper. <b>Iron win:</b> beef + spinach + pepper.",
     ing:[["Ground beef 85/15","P",2.5,"lb"],["Brown rice","G",2,"cups dry"],["Zucchini","V",2,""],["Carrots","V",3,""],["Spinach","V",5,"oz"],["Bell peppers","V",1,""],["Fresh ginger","F",0,""],["Scallions","V",4,""],["Tamari (GF)","F",0,""]],
     recipe:{ serves:"5 + leftovers", prep:"15 min", cook:"25 min",
       items:["2.5 lb ground beef (85/15)","2 cups dry brown rice (makes ~6 cups)","2 zucchini, diced","3 carrots, diced","5 oz spinach","1 red bell pepper, diced","2 Tbsp garlic-infused olive oil","1 Tbsp grated fresh ginger","4 scallions (green tops only), sliced","3 Tbsp tamari","salt to taste"],
       steps:["Start the brown rice (2 cups rice : 4 cups water, simmer ~30 min).","Heat garlic-infused oil in a large skillet over medium-high. Brown the beef, breaking it up, ~7–8 min.","Add ginger, carrots, and bell pepper; cook 4 min. Add zucchini; cook 3 min.","Stir in spinach and tamari; cook until spinach wilts, ~2 min. Salt to taste.","Serve over rice, topped with scallion greens."] } },
   { id:"chicken", emoji:"🍗", photo:"meal-sheetpanchicken.jpg", title:"Sheet-Pan Lemon-Herb Chicken", tags:["ONE PAN"],
-    nutri:{kcal:480, protein:42, iron:"low"}, diff:"Easy",
-    body:"Chicken thighs + carrots, zucchini, potato, bell pepper tossed in garlic-infused oil, lemon, rosemary/thyme. Roast 400°F ~35 min.",
+    nutri:{kcal:480, protein:42, iron:"low"}, diff:"Easy", appliance:["Oven","Air Fryer"],
+    methods:{"Air Fryer":"Great for smaller batches — air-fry chicken + veg at 380°F ~18–20 min, shaking halfway, until chicken hits 165°F. Cook in 2 rounds for a family of 5 (small basket)."},
+    body:"Chicken breasts + carrots, zucchini, potato, bell pepper tossed in garlic-infused oil, lemon, rosemary/thyme. Roast 400°F ~25–30 min.",
     ing:[["Chicken breasts","P",3,"lb"],["Carrots","V",4,""],["Zucchini","V",2,""],["Potatoes","G",4,""],["Bell peppers","V",2,""],["Lemons","V",2,""],["Fresh herbs","F",0,""]],
     recipe:{ serves:"5 + leftovers", prep:"15 min", cook:"25–30 min",
       items:["3 lb boneless chicken breasts (5–6)","4 carrots, chunked","2 zucchini, chunked","4 potatoes, chunked","2 bell peppers, chunked","3 Tbsp garlic-infused olive oil","2 lemons (juice of 1, other sliced)","2 tsp chopped rosemary + thyme","salt & pepper"],
       steps:["Heat oven to 400°F. Line a large sheet pan.","Toss all veg with 2 Tbsp oil, half the herbs, salt, pepper; spread out. Give veg a ~10 min head start (they take longer than breasts).","Rub chicken with remaining oil, lemon juice, herbs, salt; add to the pan with lemon slices.","Roast 20–25 min more until chicken hits 165°F (don't overcook — breasts dry out). Rest 5 min before slicing."] } },
   { id:"salmon", emoji:"🐟", photo:"meal-bakedsalmon.jpg", title:"Baked Salmon + Quinoa", tags:["OMEGA-3","FAST"],
-    nutri:{kcal:510, protein:40, iron:"med"}, diff:"Easy",
+    nutri:{kcal:510, protein:40, iron:"med"}, diff:"Easy", appliance:["Oven","Air Fryer"],
+    methods:{"Air Fryer":"Air-fry salmon at 390°F for 8–10 min until it flakes. Fast and crisp; do green beans in the basket 6–8 min. Cook salmon in 2 batches if your basket is small."},
     body:"Salmon with olive oil, lemon, dill, bake 400°F 12–15 min. Quinoa + green beans on the side. ~25 min.",
     ing:[["Salmon portions","P",6,"fillets"],["Quinoa","G",1.5,"cups dry"],["Green beans","V",1.5,"lb"],["Lemons","V",1,""],["Fresh herbs","F",0,""]],
     recipe:{ serves:"5", prep:"10 min", cook:"15 min",
       items:["5–6 salmon fillets (~6 oz each)","1.5 cups dry quinoa (makes ~4.5 cups)","1.5 lb green beans, trimmed","2 Tbsp olive oil","1 lemon","2 Tbsp chopped dill","salt & pepper"],
       steps:["Heat oven to 400°F. Cook quinoa (1.5 cups : 3 cups water, ~15 min).","Place salmon on a lined sheet pan; drizzle olive oil, lemon juice, dill, salt, pepper.","Add green beans to the same pan (toss in a little oil + salt).","Bake 12–15 min until salmon flakes. Serve over quinoa."] } },
   { id:"turkeyball", emoji:"🍅", title:"Turkey & Zucchini Meatball Skillet", tags:["FREEZES WELL"],
-    nutri:{kcal:490, protein:39, iron:"med"}, diff:"Medium",
+    nutri:{kcal:490, protein:39, iron:"med"}, diff:"Medium", appliance:["Stovetop","Instant Pot"],
+    methods:{"Instant Pot":"Sauté mode to sear the meatballs, add crushed tomato + basil, then Pressure Cook 5 min / quick release. Keeps them tender and hands-off."},
     body:"Ground turkey + egg + GF breadcrumb + herbs, seared, simmered in PLAIN crushed tomato + garlic-infused oil + basil. Over quinoa or zoodles.",
     ing:[["Ground turkey","P",2.5,"lb"],["Eggs","P",1,""],["GF breadcrumbs / almond flour","G",1,"pkg"],["Zucchini","V",2,""],["Plain crushed tomatoes","F",1,"can (28 oz)"],["Fresh herbs","F",0,""],["Quinoa","G",1.5,"cups dry"]],
     recipe:{ serves:"5 + leftovers", prep:"20 min", cook:"25 min",
       items:["2.5 lb ground turkey","1 egg","3/4 cup GF breadcrumbs (or almond flour)","2 zucchini (1 grated into meatballs, 1 for serving)","1 (28 oz) can PLAIN crushed tomatoes","2 Tbsp garlic-infused olive oil","1/4 cup chopped basil","1.5 cups dry quinoa","salt & pepper"],
       steps:["Cook quinoa. Mix turkey, egg, breadcrumbs, 1 grated zucchini, salt, pepper; form ~20 meatballs.","Heat garlic-infused oil in a skillet; sear meatballs on all sides, ~6 min.","Pour in crushed tomatoes + basil; simmer 15 min until meatballs cooked through (165°F).","Serve over quinoa (or zucchini noodles)."] } },
   { id:"beefstir", emoji:"🥢", title:"Beef & Veggie Stir-Fry", tags:["IRON","FAST"],
-    nutri:{kcal:500, protein:37, iron:"high"}, diff:"Easy",
+    nutri:{kcal:500, protein:37, iron:"high"}, diff:"Easy", appliance:["Stovetop","Instant Pot"],
+    methods:{"Instant Pot":"Use Sauté mode on high to sear the beef, then stir-fry the veg right in the pot. Cook rice in a separate batch."},
     body:"Thin-sliced sirloin/flank in garlic-infused oil with ginger, bok choy, carrots, bell pepper, scallion tops, tamari. Over brown rice. 15–20 min.",
     ing:[["Sirloin or flank steak","P",2.5,"lb"],["Brown rice","G",2,"cups dry"],["Bok choy","V",1,"head"],["Carrots","V",3,""],["Bell peppers","V",2,""],["Fresh ginger","F",0,""],["Scallions","V",4,""],["Tamari (GF)","F",0,""]],
     recipe:{ serves:"5", prep:"15 min", cook:"15 min",
       items:["2.5 lb sirloin or flank, thinly sliced","2 cups dry brown rice","1 head bok choy, chopped","3 carrots, julienned","2 bell peppers, sliced","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","4 scallions (greens), sliced","4 Tbsp tamari","salt"],
       steps:["Start the brown rice. Heat oil in a wok/large skillet over high.","Sear the beef in batches, ~2 min per batch; set aside.","Add carrots and peppers; stir-fry 3 min. Add bok choy + ginger; 2 min.","Return beef, add tamari and scallion greens; toss 1 min. Serve over rice."] } },
   { id:"frittata", emoji:"🍳", title:"Veggie Frittata", tags:["IRON","BUDGET"],
-    nutri:{kcal:320, protein:22, iron:"med"}, diff:"Easy",
+    nutri:{kcal:320, protein:22, iron:"med"}, diff:"Easy", appliance:["Oven","Stovetop"],
     body:"Eggs whisked with spinach, bell pepper, zucchini; bake in a skillet. Eggs = cheap protein + iron. Great breakfast-for-dinner.",
     ing:[["Eggs","P",12,""],["Spinach","V",5,"oz"],["Bell peppers","V",1,""],["Zucchini","V",1,""]],
     recipe:{ serves:"5", prep:"10 min", cook:"25 min",
       items:["12 eggs","5 oz spinach","1 bell pepper, diced","1 zucchini, diced","2 Tbsp olive oil","salt & pepper"],
       steps:["Heat oven to 375°F. Whisk eggs with salt and pepper.","In an oven-safe skillet, heat oil; sauté pepper and zucchini 4 min, add spinach to wilt.","Pour in eggs; cook 2 min on the stovetop until edges set.","Transfer skillet to oven; bake 15–18 min until set. Slice into wedges."] } },
   { id:"chickbowl", emoji:"🥗", title:"Ginger Chicken Quinoa Bowls", tags:["HIGH PROTEIN"],
-    nutri:{kcal:470, protein:41, iron:"low"}, diff:"Easy",
+    nutri:{kcal:470, protein:41, iron:"low"}, diff:"Easy", appliance:["Stovetop","Air Fryer"],
+    methods:{"Air Fryer":"Air-fry the diced chicken at 380°F ~12 min, shaking halfway, until 165°F. Build the bowls with fresh veg and quinoa."},
     body:"Diced chicken sautéed in garlic-infused oil + ginger, over quinoa with cucumber, carrot, bell pepper, scallion tops, lime. Fresh and light.",
     ing:[["Chicken breasts","P",2.5,"lb"],["Quinoa","G",1.5,"cups dry"],["Cucumber","V",1,""],["Carrots","V",2,""],["Bell peppers","V",2,""],["Limes","V",2,""],["Fresh ginger","F",0,""],["Scallions","V",4,""]],
     recipe:{ serves:"5", prep:"15 min", cook:"12 min",
       items:["2.5 lb boneless chicken breasts, diced","1.5 cups dry quinoa","1 cucumber, diced","2 carrots, shredded","2 bell peppers, sliced","2 limes","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","4 scallions (greens)","salt"],
       steps:["Cook quinoa. Heat oil; sauté diced chicken with ginger and salt over medium-high until just cooked (165°F), ~6–7 min — don't overcook.","Add juice of 1 lime at the end.","Build bowls: quinoa, chicken, fresh cucumber, carrot, pepper.","Top with scallion greens and a squeeze of lime."] } },
   { id:"salmonsp", emoji:"🍠", title:"Salmon & Roasted Sweet Potato", tags:["OMEGA-3","IRON"],
-    nutri:{kcal:530, protein:39, iron:"med"}, diff:"Easy",
+    nutri:{kcal:530, protein:39, iron:"med"}, diff:"Easy", appliance:["Oven","Air Fryer"],
+    methods:{"Air Fryer":"Air-fry sweet potato cubes at 400°F ~15 min; add salmon the last 8–10 min (or do separately in batches). Sauté spinach on the stovetop."},
     body:"Baked salmon with roasted sweet potato cubes and sautéed spinach. Olive oil, lemon, dill. Low-GI sweet potato + iron from spinach.",
     ing:[["Salmon portions","P",6,"fillets"],["Sweet potatoes","G",3,""],["Spinach","V",8,"oz"],["Lemons","V",1,""],["Fresh herbs","F",0,""]],
     recipe:{ serves:"5", prep:"15 min", cook:"30 min",
       items:["5–6 salmon fillets","3 large sweet potatoes, cubed","8 oz spinach","3 Tbsp olive oil","1 lemon","2 Tbsp dill","salt & pepper"],
       steps:["Heat oven to 425°F. Toss sweet potato in 2 Tbsp oil + salt; roast 20 min.","Push potatoes aside, add salmon to the pan with lemon, dill, salt; roast 12–15 min more.","Meanwhile sauté spinach in 1 Tbsp oil until wilted.","Plate salmon with sweet potato and spinach."] } },
   { id:"turkeystir", emoji:"🥬", title:"Turkey & Bok Choy Stir-Fry", tags:["FAST"],
-    nutri:{kcal:450, protein:38, iron:"med"}, diff:"Easy",
+    nutri:{kcal:450, protein:38, iron:"med"}, diff:"Easy", appliance:["Stovetop","Instant Pot"],
+    methods:{"Instant Pot":"Sauté mode to brown the turkey + ginger, then add veg and tamari; sauté until crisp-tender. Rice from a prior batch."},
     body:"Ground turkey stir-fried with bok choy, carrots, bell pepper, ginger, scallion tops, tamari. Over brown rice. Quick weeknight.",
     ing:[["Ground turkey","P",2.5,"lb"],["Brown rice","G",2,"cups dry"],["Bok choy","V",1,"head"],["Carrots","V",3,""],["Bell peppers","V",2,""],["Fresh ginger","F",0,""],["Scallions","V",4,""],["Tamari (GF)","F",0,""]],
     recipe:{ serves:"5", prep:"10 min", cook:"15 min",
       items:["2.5 lb ground turkey","2 cups dry brown rice","1 head bok choy, chopped","3 carrots, julienned","2 bell peppers, sliced","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","4 scallions (greens)","4 Tbsp tamari","salt"],
       steps:["Start the brown rice. Heat oil; brown the turkey with ginger, ~7 min.","Add carrots and peppers; stir-fry 3 min. Add bok choy; 2 min.","Stir in tamari and scallion greens; toss 1 min.","Serve over brown rice."] } },
   { id:"beefsp", emoji:"🍲", title:"Beef & Sweet Potato Skillet", tags:["IRON","HIGH PROTEIN"],
-    nutri:{kcal:540, protein:38, iron:"high"}, diff:"Easy",
+    nutri:{kcal:540, protein:38, iron:"high"}, diff:"Easy", appliance:["Stovetop","Instant Pot"],
+    methods:{"Instant Pot":"Sauté mode: cook sweet potato ~8 min, brown the beef, add peppers and spinach until wilted. One pot."},
     body:"Ground beef + diced sweet potato + spinach + bell pepper, cooked in garlic-infused oil with herbs. One skillet, iron-rich.",
     ing:[["Ground beef 85/15","P",2.5,"lb"],["Sweet potatoes","G",3,""],["Spinach","V",8,"oz"],["Bell peppers","V",2,""],["Fresh herbs","F",0,""]],
     recipe:{ serves:"5 + leftovers", prep:"15 min", cook:"25 min",
       items:["2.5 lb ground beef (85/15)","3 sweet potatoes, small-diced","8 oz spinach","2 bell peppers, diced","2 Tbsp garlic-infused olive oil","2 tsp chopped herbs (thyme/rosemary)","salt & pepper"],
       steps:["Heat oil in a large skillet. Add sweet potato; cover and cook 10 min until nearly tender, stirring.","Push aside; brown the beef ~7 min. Add peppers; 3 min.","Stir in spinach and herbs until wilted. Salt and pepper to taste.","Serve as-is or over a little quinoa."] } },
   { id:"chickwrap", emoji:"🌯", title:"Chicken Lettuce Wraps", tags:["LOW CARB","FAST"],
-    nutri:{kcal:360, protein:40, iron:"low"}, diff:"Easy",
+    nutri:{kcal:360, protein:40, iron:"low"}, diff:"Easy", appliance:["Stovetop","Air Fryer"],
+    methods:{"Air Fryer":"Air-fry the diced chicken at 380°F ~12 min; toss with tamari + ginger + scallions after. Spoon into lettuce cups."},
     body:"Diced chicken sautéed with ginger, scallion tops, tamari, water chestnuts; spooned into lettuce cups with shredded carrot and cucumber.",
     ing:[["Chicken breasts","P",2.5,"lb"],["Lettuce (butter/romaine)","V",2,"heads"],["Carrots","V",2,""],["Cucumber","V",1,""],["Fresh ginger","F",0,""],["Scallions","V",4,""],["Tamari (GF)","F",0,""]],
     recipe:{ serves:"5", prep:"15 min", cook:"10 min",
       items:["2.5 lb boneless chicken breasts, finely diced","2 heads butter or romaine lettuce","2 carrots, shredded","1 cucumber, diced","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","4 scallions (greens)","4 Tbsp tamari","1 can water chestnuts, chopped (optional)"],
       steps:["Heat oil; sauté diced chicken with ginger over medium-high until just cooked (165°F), ~6 min.","Add tamari, water chestnuts, scallion greens; toss 2 min.","Separate lettuce into cups.","Spoon chicken into cups; top with carrot and cucumber."] } },
   { id:"salmonrice", emoji:"🍚", title:"Teriyaki-Style Salmon Rice Bowls", tags:["OMEGA-3"],
-    nutri:{kcal:520, protein:39, iron:"med"}, diff:"Easy",
+    nutri:{kcal:520, protein:39, iron:"med"}, diff:"Easy", appliance:["Stovetop","Air Fryer"],
+    methods:{"Air Fryer":"Air-fry glazed salmon at 390°F ~8–10 min; brush extra glaze after. Build bowls over rice with fresh veg."},
     body:"Salmon glazed with tamari + ginger + lime (no onion/garlic), over brown rice with cucumber, carrot, bell pepper. Fresh poke-bowl vibe.",
     ing:[["Salmon portions","P",6,"fillets"],["Brown rice","G",2,"cups dry"],["Cucumber","V",1,""],["Carrots","V",2,""],["Bell peppers","V",2,""],["Limes","V",2,""],["Fresh ginger","F",0,""],["Tamari (GF)","F",0,""]],
     recipe:{ serves:"5", prep:"15 min", cook:"15 min",
       items:["5–6 salmon fillets","2 cups dry brown rice","1 cucumber, sliced","2 carrots, shredded","2 bell peppers, sliced","2 limes","1 Tbsp grated ginger","4 Tbsp tamari","1 Tbsp garlic-infused olive oil"],
       steps:["Cook brown rice. Mix tamari, ginger, juice of 1 lime for a glaze.","Pan-sear salmon in oil ~3 min per side; brush with glaze the last minute.","Build bowls: rice, salmon, fresh cucumber, carrot, pepper.","Finish with a squeeze of lime."] } },
   { id:"porktender", emoji:"🍖", title:"Herb-Roasted Pork Tenderloin & Sweet Potato", tags:["HIGH PROTEIN","ONE PAN"],
-    nutri:{kcal:500, protein:44, iron:"med"}, diff:"Medium",
+    nutri:{kcal:500, protein:44, iron:"med"}, diff:"Medium", appliance:["Oven","Air Fryer"],
+    methods:{"Air Fryer":"Air-fry the tenderloin at 400°F ~18–22 min, turning once, until 145°F; rest 5 min. Do sweet potato in the basket separately."},
     body:"Pork tenderloin rubbed with garlic-infused oil + herbs, roasted with sweet potato and sautéed spinach alongside. Lean, low-GI, iron-friendly. Use PLAIN tenderloin (not pre-marinated).",
     ing:[["Pork tenderloin","P",3,"lb"],["Sweet potatoes","G",3,""],["Spinach","V",8,"oz"],["Bell peppers","V",2,""],["Fresh herbs","F",0,""]],
     recipe:{ serves:"5 + leftovers", prep:"15 min", cook:"25 min",
       items:["2.5–3 lb plain pork tenderloin (2 pieces)","3 sweet potatoes, cubed","8 oz spinach","2 bell peppers, chunked","3 Tbsp garlic-infused olive oil","2 tsp chopped rosemary + thyme","salt & pepper"],
       steps:["Heat oven to 425°F. Toss sweet potato + peppers in 2 Tbsp oil, salt; roast on a sheet pan 10 min.","Rub tenderloins with 1 Tbsp oil, herbs, salt. Sear in a hot skillet 2 min per side (optional but better crust).","Add pork to the sheet pan; roast 15–18 min until pork hits 145°F. Rest 5 min, then slice.","Sauté spinach until wilted; serve alongside."] } },
   { id:"porkstir", emoji:"🥡", title:"Pork & Veggie Stir-Fry", tags:["HIGH PROTEIN","FAST"],
-    nutri:{kcal:490, protein:40, iron:"med"}, diff:"Easy",
+    nutri:{kcal:490, protein:40, iron:"med"}, diff:"Easy", appliance:["Stovetop","Instant Pot"],
+    methods:{"Instant Pot":"Sauté mode to brown the pork + ginger, then add veg and tamari; sauté until tender. Rice from a prior batch."},
     body:"Ground pork (or sliced tenderloin) stir-fried in garlic-infused oil with ginger, bok choy, carrots, bell pepper, scallion tops, tamari. Over brown rice. 15–20 min.",
     ing:[["Ground pork","P",2.5,"lb"],["Brown rice","G",2,"cups dry"],["Bok choy","V",1,"head"],["Carrots","V",3,""],["Bell peppers","V",2,""],["Fresh ginger","F",0,""],["Scallions","V",4,""],["Tamari (GF)","F",0,""]],
     recipe:{ serves:"5", prep:"10 min", cook:"15 min",
       items:["2.5 lb ground pork (or thin-sliced tenderloin)","2 cups dry brown rice","1 head bok choy, chopped","3 carrots, julienned","2 bell peppers, sliced","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","4 scallions (greens)","4 Tbsp tamari","salt"],
-      steps:["Start the brown rice. Heat oil over high; brown the pork with ginger, ~7 min.","Add carrots and peppers; stir-fry 3 min. Add bok choy; 2 min.","Stir in tamari and scallion greens; toss 1 min.","Serve over brown rice."] } }
+      steps:["Start the brown rice. Heat oil over high; brown the pork with ginger, ~7 min.","Add carrots and peppers; stir-fry 3 min. Add bok choy; 2 min.","Stir in tamari and scallion greens; toss 1 min.","Serve over brown rice."] } },
+  { id:"ipbeef", emoji:"🍲", title:"Instant Pot Shredded Beef Bowls", tags:["IRON","HANDS-OFF"],
+    nutri:{kcal:530, protein:42, iron:"high"}, diff:"Easy", appliance:["Instant Pot"],
+    body:"Chuck roast pressure-cooked until fall-apart tender with ginger, tamari, and herbs, then shredded over brown rice with carrots and spinach. Hands-off and very iron-rich. Great for leftovers.",
+    ing:[["Beef chuck roast","P",3,"lb"],["Brown rice","G",2,"cups dry"],["Carrots","V",4,""],["Spinach","V",8,"oz"],["Fresh ginger","F",0,""],["Tamari (GF)","F",0,""]],
+    recipe:{ serves:"5 + leftovers", prep:"10 min", cook:"70 min (mostly hands-off)",
+      items:["3 lb beef chuck roast, cut in large chunks","2 cups dry brown rice","4 carrots, chunked","8 oz spinach","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","1/4 cup tamari","1 cup water","salt & pepper"],
+      steps:["Set Instant Pot to Sauté; brown beef chunks in the oil on all sides, ~6 min. Season with salt.","Add ginger, tamari, water, and carrots. Lock the lid; Pressure Cook (high) 50 min, then natural release 10 min.","Cook brown rice separately (or a prior batch). Shred the beef with two forks in the pot juices.","Stir spinach into the hot pot until wilted. Serve shredded beef + carrots over rice."] },
+    methods:{"Instant Pot":"This recipe is built for the Instant Pot — brown on Sauté, then Pressure Cook. See steps above."} },
+  { id:"afsalmonbites", emoji:"🔥", title:"Air-Fryer Salmon Bites", tags:["OMEGA-3","FAST"],
+    nutri:{kcal:420, protein:38, iron:"low"}, diff:"Easy", appliance:["Air Fryer"],
+    body:"Cubed salmon tossed in garlic-infused oil, tamari, and ginger, air-fried crispy in minutes. Serve over quinoa with cucumber and carrot. Cook in batches with a small basket.",
+    ing:[["Salmon portions","P",6,"fillets"],["Quinoa","G",1.5,"cups dry"],["Cucumber","V",1,""],["Carrots","V",2,""],["Limes","V",2,""],["Fresh ginger","F",0,""],["Tamari (GF)","F",0,""]],
+    recipe:{ serves:"5", prep:"15 min", cook:"12 min",
+      items:["5–6 salmon fillets, cut into 1-inch cubes","1.5 cups dry quinoa","1 cucumber, diced","2 carrots, shredded","2 limes","1 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","3 Tbsp tamari"],
+      steps:["Cook quinoa. Toss salmon cubes with oil, tamari, ginger.","Air-fry at 390°F for 7–9 min, shaking once, until just cooked and crisp at the edges. Work in 2 batches if your basket is small.","Build bowls: quinoa, salmon bites, fresh cucumber and carrot.","Finish with a squeeze of lime."] },
+    methods:{"Air Fryer":"Built for the air fryer — 390°F, 7–9 min, shake once. Batch for a family of 5 with a small basket."} },
+  { id:"ippork", emoji:"🍖", title:"Instant Pot Pork Tenderloin & Carrots", tags:["HIGH PROTEIN","HANDS-OFF"],
+    nutri:{kcal:470, protein:45, iron:"med"}, diff:"Easy", appliance:["Instant Pot"],
+    body:"Plain pork tenderloin pressure-cooked with carrots in a ginger-tamari broth, then sliced over quinoa with sautéed spinach. Lean, fast, and hands-off. Use PLAIN tenderloin.",
+    ing:[["Pork tenderloin","P",3,"lb"],["Quinoa","G",1.5,"cups dry"],["Carrots","V",4,""],["Spinach","V",8,"oz"],["Fresh ginger","F",0,""],["Tamari (GF)","F",0,""]],
+    recipe:{ serves:"5 + leftovers", prep:"10 min", cook:"25 min",
+      items:["3 lb plain pork tenderloin (2 pieces)","1.5 cups dry quinoa","4 carrots, chunked","8 oz spinach","2 Tbsp garlic-infused olive oil","1 Tbsp grated ginger","3 Tbsp tamari","1 cup water"],
+      steps:["Set Instant Pot to Sauté; sear tenderloins in oil ~2 min per side. Season.","Add ginger, tamari, water, carrots. Pressure Cook (high) 3 min, then natural release 10 min (pork should hit 145°F; rest before slicing).","Cook quinoa separately. Sauté spinach until wilted.","Slice pork; serve over quinoa with carrots and spinach, spooning over some pot juices."] },
+    methods:{"Instant Pot":"Built for the Instant Pot — sear on Sauté, Pressure Cook 3 min + 10 min natural release. Don't overcook; pork is done at 145°F."} }
 ];
 
 // pantry staples always on the list (buy as needed — not summed)
@@ -257,6 +296,7 @@ const save = ()=>{ localStorage.setItem(SEL_KEY,JSON.stringify(selected)); local
 // global dietary badges — every meal meets these
 const DIET = ["GF","Dairy-Free","Low-FODMAP","Low-GI"];
 const ironLabel = v => v==="high" ? "🩸 High iron" : v==="med" ? "🩸 Iron" : "";
+const applIcon = a => ({"Instant Pot":"🍲","Air Fryer":"🔥","Oven":"♨️","Stovetop":"🍳"}[a]||"🍽");
 
 function renderMeals(){
   const c = document.getElementById("mealList"); c.innerHTML="";
@@ -280,6 +320,7 @@ function renderMeals(){
           ${m.nutri.iron!=="low" ? `<span class="b b-iron">${ironLabel(m.nutri.iron)}</span>`:""}
           <span class="b b-kcal">${m.nutri.kcal} cal</span>
         </div>
+        <div class="appl">${(m.appliance||[]).map(a=>`<span class="applb">${applIcon(a)} ${a}</span>`).join("")}</div>
         <div class="diet">${DIET.map(d=>`<span class="dietb">${d}</span>`).join("")}</div>
         <div class="meal-body">${m.body}</div>
         <div class="viewrecipe">View recipe →</div>
@@ -317,12 +358,14 @@ function openRecipe(id){
           ${m.nutri.iron!=="low"?`<span class="b b-iron">${ironLabel(m.nutri.iron)}</span>`:""}
           <span class="b b-kcal">${m.nutri.kcal} cal</span>
         </div>
+        <div class="appl">${(m.appliance||[]).map(a=>`<span class="applb">${applIcon(a)} ${a}</span>`).join("")}</div>
         <div class="diet">${DIET.map(d=>`<span class="dietb">${d}</span>`).join("")}</div>
         <div class="rc-meta">🍽 ${m.recipe.serves} · prep ${m.recipe.prep} · cook ${m.recipe.cook}</div>
         <div class="rhead">Ingredients</div>
         <div class="rc-ing">${m.recipe.items.map(x=>"• "+x).join("<br>")}</div>
         <div class="rhead">Steps (tap to check off)</div>
         <ol class="rc-steps">${m.recipe.steps.map((s,i)=>`<li data-i="${i}">${s}</li>`).join("")}</ol>
+        ${m.methods ? Object.keys(m.methods).map(k=>`<div class="rhead">${applIcon(k)} ${k} Method</div><div class="rc-ing">${m.methods[k]}</div>`).join("") : ""}
         <button class="rc-pick ${on?'on':''}" id="rcPick">${on?"✓ In this week":"+ Add to week"}</button>
       </div>
     </div>`;
