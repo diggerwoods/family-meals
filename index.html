@@ -28,7 +28,7 @@
   /* meal card */
   .meal { background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:13px; overflow:hidden; }
   .meal.sel { border-color:var(--accent); box-shadow:0 0 0 2px rgba(37,99,235,.15); }
-  .hero { height:92px; display:flex; align-items:center; justify-content:center; font-size:52px; position:relative; }
+  .hero { height:140px; display:flex; align-items:center; justify-content:center; font-size:52px; position:relative; }
   .pick { position:absolute; top:8px; right:8px; width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.9); border:2px solid #cbd5e1; display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--accent); font-weight:700; }
   .meal.sel .pick { background:var(--accent); border-color:var(--accent); color:#fff; }
   .meal-in { padding:12px 15px 15px; }
@@ -114,7 +114,7 @@
 const CAT = { P:"Proteins", G:"Grains / Carbs", V:"Produce", F:"Pantry / Flavor" };
 // recipes scaled for family of 5 (2 adults, teens 15/12, child 10) WITH leftovers
 const MEALS = [
-  { id:"beefbowl", emoji:"🥩", title:"Beef & Veggie Rice Bowls", tags:["IRON","HIGH PROTEIN"],
+  { id:"beefbowl", emoji:"🥩", photo:"meal-beefbowl.jpeg", title:"Beef & Veggie Rice Bowls", tags:["IRON","HIGH PROTEIN"],
     body:"Ground beef browned in garlic-infused oil with ginger, scallion tops, tamari. Over brown rice/quinoa with zucchini, carrots, spinach, red pepper. <b>Iron win:</b> beef + spinach + pepper.",
     ing:[["Ground beef 85/15","P"],["Brown rice","G"],["Zucchini","V"],["Carrots","V"],["Spinach","V"],["Red bell pepper","V"],["Fresh ginger","F"],["Scallions","V"],["Tamari (GF)","F"]],
     recipe:{ serves:"5 + leftovers", prep:"15 min", cook:"25 min",
@@ -213,9 +213,12 @@ function renderMeals(){
   MEALS.forEach(m=>{
     const on = selected.includes(m.id);
     const el = document.createElement("div"); el.className="meal"+(on?" sel":"");
+    const heroStyle = m.photo
+      ? `background-image:url('${m.photo}');background-size:cover;background-position:center;`
+      : `background:linear-gradient(135deg,#eef2f7,#dbe4ef)`;
     el.innerHTML = `
-      <div class="hero" style="background:linear-gradient(135deg,#eef2f7,#dbe4ef)">
-        ${m.emoji}<div class="pick">${on?"✓":"+"}</div>
+      <div class="hero" style="${heroStyle}">
+        ${m.photo ? "" : m.emoji}<div class="pick">${on?"✓":"+"}</div>
       </div>
       <div class="meal-in">
         <div class="meal-title">${m.title}</div>

@@ -1,6 +1,6 @@
 // Minimal offline cache so the app works without a connection.
-const CACHE = "familymeals-v4";
-const ASSETS = ["./index.html","./manifest.json","./icon-180.png","./icon-192.png","./icon-512.png"];
+const CACHE = "familymeals-v5";
+const ASSETS = ["./index.html","./manifest.json","./icon-180.png","./icon-192.png","./icon-512.png","./meal-beefbowl.jpeg"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).catch(()=>{}));
