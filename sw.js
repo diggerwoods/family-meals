@@ -1,5 +1,5 @@
 // Minimal offline cache so the app works without a connection.
-const CACHE = "familymeals-v5";
+const CACHE = "familymeals-v6";
 const ASSETS = ["./index.html","./manifest.json","./icon-180.png","./icon-192.png","./icon-512.png","./meal-beefbowl.jpeg"];
 
 self.addEventListener("install", e => {
