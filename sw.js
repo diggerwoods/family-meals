@@ -1,5 +1,5 @@
 // Minimal offline cache so the app works without a connection.
-const CACHE = "familymeals-v14";
+const CACHE = "familymeals-v15";
 const ASSETS = ["./index.html","./manifest.json","./icon-180.png","./icon-192.png","./icon-512.png",
   "./meal-beefbowl.jpeg","./meal-sheetpanchicken.jpg","./meal-bakedsalmon.jpg","./meal-beefstirfry.jpg",
   "./meal-gingerchicken.jpg","./meal-salmonsweetpotato.jpg","./meal-turkeyzucchini.jpg","./meal-veggiefrittata.jpg",
