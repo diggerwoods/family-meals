@@ -24,6 +24,10 @@
   .view { display:none; padding:16px; }
   .view.active { display:block; }
   .intro { font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:12px; }
+  .filterbar { display:flex; gap:7px; overflow-x:auto; padding-bottom:10px; margin-bottom:6px; -webkit-overflow-scrolling:touch; }
+  .filterbar::-webkit-scrollbar { display:none; }
+  .chip { flex:0 0 auto; font-size:12.5px; font-weight:600; padding:7px 13px; border-radius:18px; background:#fff; border:1px solid var(--line); color:var(--muted); cursor:pointer; white-space:nowrap; }
+  .chip.active { background:var(--navy); color:#fff; border-color:var(--navy); }
 
   /* meal card */
   .meal { background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:13px; overflow:hidden; }
@@ -108,6 +112,13 @@
 <!-- ============ MEALS ============ -->
 <div class="view active" id="meals">
   <div class="intro">Tap the circle on any meal to add it to your week. The Costco list builds automatically from what you pick. Built around Mom's targets — everyone else can add extras on the side.</div>
+  <div class="filterbar" id="filterBar">
+    <span class="chip active" data-f="All">All</span>
+    <span class="chip" data-f="Instant Pot">🍲 Instant Pot</span>
+    <span class="chip" data-f="Air Fryer">🔥 Air Fryer</span>
+    <span class="chip" data-f="Oven">♨️ Oven</span>
+    <span class="chip" data-f="Stovetop">🍳 Stovetop</span>
+  </div>
   <div id="mealList"></div>
 </div>
 
@@ -298,9 +309,12 @@ const DIET = ["GF","Dairy-Free","Low-FODMAP","Low-GI"];
 const ironLabel = v => v==="high" ? "🩸 High iron" : v==="med" ? "🩸 Iron" : "";
 const applIcon = a => ({"Instant Pot":"🍲","Air Fryer":"🔥","Oven":"♨️","Stovetop":"🍳"}[a]||"🍽");
 
+let filter = "All";
 function renderMeals(){
   const c = document.getElementById("mealList"); c.innerHTML="";
-  MEALS.forEach(m=>{
+  const list = MEALS.filter(m => filter==="All" || (m.appliance||[]).includes(filter));
+  if(list.length===0){ c.innerHTML = `<div class="empty">No ${filter} meals.</div>`; }
+  list.forEach(m=>{
     const on = selected.includes(m.id);
     const el = document.createElement("div"); el.className="meal"+(on?" sel":"");
     const heroStyle = m.photo
@@ -449,6 +463,10 @@ document.querySelectorAll(".tab").forEach(t=>{
   t.onclick=()=>{ document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
     document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
     t.classList.add("active"); document.getElementById(t.dataset.v).classList.add("active"); };
+});
+document.querySelectorAll("#filterBar .chip").forEach(ch=>{
+  ch.onclick=()=>{ document.querySelectorAll("#filterBar .chip").forEach(x=>x.classList.remove("active"));
+    ch.classList.add("active"); filter = ch.dataset.f; renderMeals(); };
 });
 
 renderMeals(); renderList(); updateCount();
