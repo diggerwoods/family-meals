@@ -11,36 +11,51 @@
 <link rel="apple-touch-icon" href="icon-180.png"/>
 <title>Family Meals</title>
 <style>
-  :root { --navy:#1e3a5f; --bg:#f6f7f9; --card:#fff; --line:#e2e8f0; --ink:#1e293b; --muted:#64748b; }
+  :root { --navy:#1e3a5f; --bg:#f6f7f9; --card:#fff; --line:#e2e8f0; --ink:#1e293b; --muted:#64748b; --accent:#2563eb; }
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  body { font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif; background:var(--bg); color:var(--ink); padding-bottom:72px; }
-  header { background:var(--navy); color:#fff; padding:calc(env(safe-area-inset-top) + 16px) 18px 16px; position:sticky; top:0; z-index:10; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Inter",sans-serif; background:var(--bg); color:var(--ink); padding-bottom:76px; }
+  header { background:var(--navy); color:#fff; padding:calc(env(safe-area-inset-top) + 16px) 18px 14px; position:sticky; top:0; z-index:10; }
   header h1 { font-size:20px; font-weight:700; }
   header p { font-size:12px; opacity:.8; margin-top:2px; }
   .tabs { display:flex; background:var(--card); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:9; }
-  .tab { flex:1; text-align:center; padding:13px 6px; font-size:13px; font-weight:600; color:var(--muted); border-bottom:2.5px solid transparent; cursor:pointer; }
+  .tab { flex:1; text-align:center; padding:13px 4px; font-size:12.5px; font-weight:600; color:var(--muted); border-bottom:2.5px solid transparent; cursor:pointer; }
   .tab.active { color:var(--navy); border-bottom-color:var(--navy); }
+  .tab .count { display:inline-block; min-width:18px; font-size:10px; background:var(--accent); color:#fff; border-radius:9px; padding:1px 5px; margin-left:3px; vertical-align:middle; }
   .view { display:none; padding:16px; }
   .view.active { display:block; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:12px; }
+  .intro { font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:12px; }
+
+  /* meal card */
+  .meal { background:var(--card); border:1px solid var(--line); border-radius:14px; margin-bottom:13px; overflow:hidden; }
+  .meal.sel { border-color:var(--accent); box-shadow:0 0 0 2px rgba(37,99,235,.15); }
+  .hero { height:92px; display:flex; align-items:center; justify-content:center; font-size:52px; position:relative; }
+  .pick { position:absolute; top:8px; right:8px; width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.9); border:2px solid #cbd5e1; display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--accent); font-weight:700; }
+  .meal.sel .pick { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .meal-in { padding:12px 15px 15px; }
   .meal-title { font-size:16px; font-weight:700; color:var(--navy); }
-  .meal-tag { display:inline-block; font-size:10px; font-weight:700; background:#eff6ff; color:#1e40af; padding:2px 8px; border-radius:10px; margin-left:6px; vertical-align:middle; }
-  .meal-body { font-size:13px; color:var(--ink); line-height:1.5; margin-top:8px; }
+  .tags { margin-top:5px; }
+  .tag { display:inline-block; font-size:10px; font-weight:700; background:#eff6ff; color:#1e40af; padding:2px 8px; border-radius:10px; margin-right:5px; }
+  .meal-body { font-size:13px; color:var(--ink); line-height:1.5; margin-top:9px; }
   .meal-body b { color:var(--navy); }
-  .sec-title { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--navy); margin:18px 0 8px; }
-  .note { font-size:12px; color:var(--muted); line-height:1.5; }
-  ul.steps { margin:8px 0 0 18px; } ul.steps li { font-size:13px; margin-bottom:6px; line-height:1.45; }
+  .toggle-ing { font-size:12px; color:var(--accent); font-weight:600; margin-top:9px; cursor:pointer; }
+  .ing { display:none; margin-top:8px; padding-top:8px; border-top:1px dashed var(--line); font-size:12.5px; color:var(--muted); line-height:1.6; }
+  .ing.open { display:block; }
+
   /* shopping list */
   .cat { font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--navy); margin:16px 0 6px; }
   .item { display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:7px; cursor:pointer; font-size:14px; }
   .item .box { width:22px; height:22px; border:2px solid #cbd5e1; border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; }
-  .item.done { opacity:.5; }
-  .item.done .box { background:var(--navy); border-color:var(--navy); }
-  .item.done .label { text-decoration:line-through; }
-  .warn { background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:12px 14px; font-size:12.5px; color:#7c2d12; line-height:1.5; margin-top:6px; }
+  .item.done { opacity:.5; } .item.done .box { background:var(--navy); border-color:var(--navy); } .item.done .label { text-decoration:line-through; }
+  .empty { text-align:center; color:var(--muted); font-size:13px; padding:30px 10px; line-height:1.6; }
+  .warn { background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:12px 14px; font-size:12.5px; color:#7c2d12; line-height:1.5; margin-top:10px; }
   .warn b { color:#9a3412; }
-  .reset { display:block; width:100%; margin-top:14px; padding:12px; background:#fff; border:1px solid var(--line); border-radius:10px; color:var(--muted); font-size:13px; font-weight:600; cursor:pointer; }
-  .install { background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px 14px; font-size:12.5px; color:#1e40af; line-height:1.5; margin-bottom:12px; }
+  .btnrow { display:flex; gap:8px; margin-top:14px; }
+  .btn { flex:1; padding:12px; background:#fff; border:1px solid var(--line); border-radius:10px; color:var(--muted); font-size:13px; font-weight:600; cursor:pointer; }
+  .sec-title { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--navy); margin:18px 0 8px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:12px; }
+  .note { font-size:12.5px; color:var(--muted); line-height:1.5; }
+  ul.steps { margin:8px 0 0 18px; } ul.steps li { font-size:13px; margin-bottom:6px; line-height:1.45; }
+  .banner { background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:11px 14px; font-size:12.5px; color:#1e40af; line-height:1.5; margin-bottom:12px; }
 </style>
 </head>
 <body>
@@ -52,112 +67,163 @@
 
 <div class="tabs">
   <div class="tab active" data-v="meals">Meals</div>
-  <div class="tab" data-v="list">Costco List</div>
+  <div class="tab" data-v="list">List<span class="count" id="selCount">0</span></div>
   <div class="tab" data-v="prep">Prep</div>
 </div>
 
 <!-- ============ MEALS ============ -->
 <div class="view active" id="meals">
-  <div class="note" style="margin-bottom:12px;">Built around Mom's targets; everyone else can add extras on the side. Use any 3–5 per week. Scaled for a hungry family of 5 with leftovers.</div>
-
-  <div class="card">
-    <div class="meal-title">1. Beef & Veggie Rice Bowls<span class="meal-tag">IRON</span></div>
-    <div class="meal-body"><b>Protein:</b> ~2.5–3 lb ground beef (85/15). Brown in garlic-infused oil; season with ginger, scallion GREEN tops, tamari, salt. <b>Base:</b> brown rice or quinoa. <b>Veg:</b> zucchini, carrots, spinach, red bell pepper. <br><b>Why it works:</b> beef + spinach + bell pepper (vit C) = max iron. Batch & freeze the beef-veg mix.</div>
-  </div>
-
-  <div class="card">
-    <div class="meal-title">2. Sheet-Pan Lemon-Herb Chicken</div>
-    <div class="meal-body"><b>Protein:</b> chicken thighs (bone-in = juicy + cheap). <b>Veg:</b> carrots, zucchini, potato, bell pepper. Toss in garlic-infused oil, lemon, rosemary/thyme, salt. Roast 400°F ~35 min. One pan, great leftovers.</div>
-  </div>
-
-  <div class="card">
-    <div class="meal-title">3. Baked Salmon + Quinoa<span class="meal-tag">OMEGA-3</span></div>
-    <div class="meal-body"><b>Protein:</b> 5–6 salmon portions, olive oil + lemon + dill + salt, bake 400°F 12–15 min. <b>Sides:</b> quinoa + green beans. Fast (~25 min).</div>
-  </div>
-
-  <div class="card">
-    <div class="meal-title">4. Turkey & Zucchini Meatball Skillet</div>
-    <div class="meal-body"><b>Protein:</b> ~2.5 lb ground turkey + egg + GF breadcrumb (or almond flour) + herbs. Sear meatballs; simmer in PLAIN crushed tomato + garlic-infused oil + basil. Serve over quinoa or zucchini noodles. Freezes great.</div>
-  </div>
-
-  <div class="card">
-    <div class="meal-title">5. Beef & Veggie Stir-Fry<span class="meal-tag">IRON · FAST</span></div>
-    <div class="meal-body"><b>Protein:</b> thin-sliced sirloin/flank, stir-fried in garlic-infused oil with ginger, bok choy, carrots, bell pepper, scallion tops, tamari. Over brown rice. 15–20 min.</div>
-  </div>
-
-  <div class="card">
-    <div class="meal-title">Easy Backups</div>
-    <div class="meal-body">Veggie frittata (eggs = protein + iron, add spinach + pepper) · lettuce/rice-paper wraps with leftover protein.</div>
-  </div>
+  <div class="intro">Tap the circle on any meal to add it to your week. The Costco list builds automatically from what you pick. Built around Mom's targets — everyone else can add extras on the side.</div>
+  <div id="mealList"></div>
 </div>
 
-<!-- ============ SHOPPING LIST ============ -->
+<!-- ============ LIST ============ -->
 <div class="view" id="list">
-  <div class="install">💡 Tap items to check them off as you shop — the app remembers. For a <b>shared</b> live list, also keep a shared Apple Reminders list so the whole family can check off together.</div>
+  <div class="banner">🛒 This list is built from your selected meals, plus pantry staples. Tap items to check them off as you shop. For a <b>shared live list</b>, keep a shared Apple Reminders list too.</div>
   <div id="listContainer"></div>
-  <div class="cat">⚠️ Label-Reading Traps</div>
-  <div class="warn">
-    <b>Soy sauce →</b> use TAMARI / certified GF (regular = wheat).<br>
-    <b>Canned tomato / sauce →</b> PLAIN only (most have onion & garlic).<br>
-    <b>Broth / stock →</b> almost all have onion & garlic — avoid or buy low-FODMAP.<br>
-    <b>"Seasoned" meats →</b> usually onion/garlic powder — buy plain, season yourself.<br>
-    <b>Breadcrumbs →</b> must be gluten-free (or use almond flour).
+  <div class="warn" id="trapsBox">
+    <b>Label traps:</b> Soy sauce → use TAMARI/GF · Canned tomato → PLAIN only · Broth → usually has onion/garlic · "Seasoned" meats → buy plain · Breadcrumbs → gluten-free.
   </div>
-  <button class="reset" id="resetBtn">Reset checklist</button>
+  <div class="btnrow">
+    <button class="btn" id="clearSel">Clear week</button>
+    <button class="btn" id="resetChecks">Uncheck all</button>
+  </div>
 </div>
 
 <!-- ============ PREP ============ -->
 <div class="view" id="prep">
   <div class="sec-title">Sunday Batch-Cook → Easy Week</div>
   <div class="card"><ul class="steps">
-    <li>Cook a big pot of <b>quinoa</b> + a big pot of <b>brown rice</b>. Portion into containers (fridge 5 days / freeze longer).</li>
-    <li>Brown a large batch of <b>ground beef</b> and <b>ground turkey</b> with the garlic-oil + seasoning base. Split for Bowls (meal 1) and Meatballs (meal 4).</li>
-    <li>Pre-chop the week's <b>veg</b> (carrots, zucchini, bell pepper, green beans) into one big container.</li>
-    <li>Keep <b>salmon</b> + <b>chicken thighs</b> frozen; thaw the morning of.</li>
-    <li>Weeknight = reheat a protein + a grain, quick-sauté fresh veg. 10–15 min to plate.</li>
+    <li>Cook big pots of <b>quinoa</b> + <b>brown rice</b>; portion & store (fridge 5 days / freeze longer).</li>
+    <li>Brown large batches of <b>ground beef</b> + <b>ground turkey</b> with the garlic-oil base; split across meals.</li>
+    <li>Pre-chop the week's <b>veg</b> into one container.</li>
+    <li>Keep <b>salmon</b> + <b>chicken</b> frozen; thaw the morning of.</li>
+    <li>Weeknight = reheat protein + grain, quick-sauté veg (10–15 min).</li>
   </ul></div>
-  <div class="sec-title">Flavor Base (no onion/garlic)</div>
-  <div class="card note">Low-FODMAP flavor comes from <b>garlic-INFUSED olive oil</b> (FODMAPs aren't oil-soluble, so infused oil is safe) + scallion GREEN tops + fresh ginger + lemon/lime + herbs + salt. This single swap replaces onion & garlic in every recipe.</div>
+  <div class="sec-title">Flavor Base (no onion / garlic)</div>
+  <div class="card note">Garlic-<b>INFUSED</b> olive oil + scallion GREEN tops + fresh ginger + lemon/lime + herbs + salt. Infused oil is low-FODMAP because FODMAPs aren't oil-soluble — this replaces onion & garlic everywhere.</div>
   <div class="sec-title">Iron Boost</div>
-  <div class="card note">Pair iron-rich foods (beef, spinach, pumpkin seeds) with vitamin C (bell pepper, tomato, citrus) in the same meal to maximize absorption.</div>
+  <div class="card note">Pair iron foods (beef, spinach, pumpkin seeds) with vitamin C (bell pepper, tomato, citrus) in the same meal to maximize absorption.</div>
 </div>
 
 <script>
-const LIST = {
-  "Proteins (bulk — portion & freeze)": ["Ground beef 85/15","Chicken thighs","Salmon portions","Ground turkey","Sirloin or flank steak","Eggs (18–24 ct)","Firm tofu (optional)"],
-  "Grains / Low-GI Carbs": ["Quinoa","Brown rice","Sweet / regular potatoes","Almond flour or GF breadcrumbs"],
-  "Produce (weekly)": ["Carrots","Zucchini","Bell peppers (red/yellow)","Spinach","Green beans","Bok choy","Scallions (use green tops)","Lemons / limes","Fresh ginger","Fresh herbs","Cucumber / tomato"],
-  "Pantry / Flavor": ["Garlic-INFUSED olive oil ⭐","Extra-virgin olive oil","Tamari (GF soy sauce)","Plain crushed tomatoes","Pumpkin seeds / nuts","Salt & pepper, dried herbs"]
-};
-const KEY = "familymeals.checked.v1";
-let checked = JSON.parse(localStorage.getItem(KEY) || "{}");
+// ---- MEAL DATA ---- each ingredient tagged with a shopping category ----
+const CAT = { P:"Proteins", G:"Grains / Carbs", V:"Produce", F:"Pantry / Flavor" };
+const MEALS = [
+  { id:"beefbowl", emoji:"🥩", title:"Beef & Veggie Rice Bowls", tags:["IRON","HIGH PROTEIN"],
+    body:"Ground beef browned in garlic-infused oil with ginger, scallion tops, tamari. Over brown rice/quinoa with zucchini, carrots, spinach, red pepper. <b>Iron win:</b> beef + spinach + pepper.",
+    ing:[["Ground beef 85/15","P"],["Brown rice","G"],["Zucchini","V"],["Carrots","V"],["Spinach","V"],["Red bell pepper","V"],["Fresh ginger","F"],["Scallions","V"],["Tamari (GF)","F"]] },
+  { id:"chicken", emoji:"🍗", title:"Sheet-Pan Lemon-Herb Chicken", tags:["ONE PAN"],
+    body:"Chicken thighs + carrots, zucchini, potato, bell pepper tossed in garlic-infused oil, lemon, rosemary/thyme. Roast 400°F ~35 min.",
+    ing:[["Chicken thighs","P"],["Carrots","V"],["Zucchini","V"],["Potatoes","G"],["Bell peppers","V"],["Lemons","V"],["Fresh herbs","F"]] },
+  { id:"salmon", emoji:"🐟", title:"Baked Salmon + Quinoa", tags:["OMEGA-3","FAST"],
+    body:"Salmon with olive oil, lemon, dill, bake 400°F 12–15 min. Quinoa + green beans on the side. ~25 min.",
+    ing:[["Salmon portions","P"],["Quinoa","G"],["Green beans","V"],["Lemons","V"],["Fresh herbs","F"]] },
+  { id:"turkeyball", emoji:"🍅", title:"Turkey & Zucchini Meatball Skillet", tags:["FREEZES WELL"],
+    body:"Ground turkey + egg + GF breadcrumb + herbs, seared, simmered in PLAIN crushed tomato + garlic-infused oil + basil. Over quinoa or zoodles.",
+    ing:[["Ground turkey","P"],["Eggs","P"],["GF breadcrumbs / almond flour","G"],["Zucchini","V"],["Plain crushed tomatoes","F"],["Fresh herbs","F"],["Quinoa","G"]] },
+  { id:"beefstir", emoji:"🥢", title:"Beef & Veggie Stir-Fry", tags:["IRON","FAST"],
+    body:"Thin-sliced sirloin/flank in garlic-infused oil with ginger, bok choy, carrots, bell pepper, scallion tops, tamari. Over brown rice. 15–20 min.",
+    ing:[["Sirloin or flank steak","P"],["Brown rice","G"],["Bok choy","V"],["Carrots","V"],["Bell peppers","V"],["Fresh ginger","F"],["Scallions","V"],["Tamari (GF)","F"]] },
+  { id:"frittata", emoji:"🍳", title:"Veggie Frittata", tags:["IRON","BUDGET"],
+    body:"Eggs whisked with spinach, bell pepper, zucchini; bake in a skillet. Eggs = cheap protein + iron. Great breakfast-for-dinner.",
+    ing:[["Eggs","P"],["Spinach","V"],["Bell peppers","V"],["Zucchini","V"]] },
+  { id:"chickbowl", emoji:"🥗", title:"Ginger Chicken Quinoa Bowls", tags:["HIGH PROTEIN"],
+    body:"Diced chicken sautéed in garlic-infused oil + ginger, over quinoa with cucumber, carrot, bell pepper, scallion tops, lime. Fresh and light.",
+    ing:[["Chicken thighs","P"],["Quinoa","G"],["Cucumber","V"],["Carrots","V"],["Bell peppers","V"],["Limes","V"],["Fresh ginger","F"],["Scallions","V"]] },
+  { id:"salmonsp", emoji:"🍠", title:"Salmon & Roasted Sweet Potato", tags:["OMEGA-3","IRON"],
+    body:"Baked salmon with roasted sweet potato cubes and sautéed spinach. Olive oil, lemon, dill. Low-GI sweet potato + iron from spinach.",
+    ing:[["Salmon portions","P"],["Sweet potatoes","G"],["Spinach","V"],["Lemons","V"],["Fresh herbs","F"]] },
+  { id:"turkeystir", emoji:"🥬", title:"Turkey & Bok Choy Stir-Fry", tags:["FAST"],
+    body:"Ground turkey stir-fried with bok choy, carrots, bell pepper, ginger, scallion tops, tamari. Over brown rice. Quick weeknight.",
+    ing:[["Ground turkey","P"],["Brown rice","G"],["Bok choy","V"],["Carrots","V"],["Bell peppers","V"],["Fresh ginger","F"],["Scallions","V"],["Tamari (GF)","F"]] },
+  { id:"beefsp", emoji:"🍲", title:"Beef & Sweet Potato Skillet", tags:["IRON","HIGH PROTEIN"],
+    body:"Ground beef + diced sweet potato + spinach + bell pepper, cooked in garlic-infused oil with herbs. One skillet, iron-rich.",
+    ing:[["Ground beef 85/15","P"],["Sweet potatoes","G"],["Spinach","V"],["Bell peppers","V"],["Fresh herbs","F"]] },
+  { id:"chickwrap", emoji:"🌯", title:"Chicken Lettuce Wraps", tags:["LOW CARB","FAST"],
+    body:"Diced chicken sautéed with ginger, scallion tops, tamari, water chestnuts; spooned into lettuce cups with shredded carrot and cucumber.",
+    ing:[["Chicken thighs","P"],["Lettuce (butter/romaine)","V"],["Carrots","V"],["Cucumber","V"],["Fresh ginger","F"],["Scallions","V"],["Tamari (GF)","F"]] },
+  { id:"salmonrice", emoji:"🍚", title:"Teriyaki-Style Salmon Rice Bowls", tags:["OMEGA-3"],
+    body:"Salmon glazed with tamari + ginger + lime (no onion/garlic), over brown rice with cucumber, carrot, bell pepper. Fresh poke-bowl vibe.",
+    ing:[["Salmon portions","P"],["Brown rice","G"],["Cucumber","V"],["Carrots","V"],["Bell peppers","V"],["Limes","V"],["Fresh ginger","F"],["Tamari (GF)","F"]] }
+];
+
+// pantry staples always on the list (you likely restock these)
+const STAPLES = [["Garlic-INFUSED olive oil","F"],["Extra-virgin olive oil","F"],["Salt & pepper","F"],["Pumpkin seeds / nuts","F"]];
+
+const SEL_KEY="familymeals.selected.v2", CHK_KEY="familymeals.checked.v2";
+let selected = JSON.parse(localStorage.getItem(SEL_KEY) || "[]");
+let checked  = JSON.parse(localStorage.getItem(CHK_KEY) || "{}");
+const save = ()=>{ localStorage.setItem(SEL_KEY,JSON.stringify(selected)); localStorage.setItem(CHK_KEY,JSON.stringify(checked)); };
+
+function renderMeals(){
+  const c = document.getElementById("mealList"); c.innerHTML="";
+  MEALS.forEach(m=>{
+    const on = selected.includes(m.id);
+    const el = document.createElement("div"); el.className="meal"+(on?" sel":"");
+    el.innerHTML = `
+      <div class="hero" style="background:linear-gradient(135deg,#eef2f7,#dbe4ef)">
+        ${m.emoji}<div class="pick">${on?"✓":"+"}</div>
+      </div>
+      <div class="meal-in">
+        <div class="meal-title">${m.title}</div>
+        <div class="tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+        <div class="meal-body">${m.body}</div>
+        <div class="toggle-ing">Ingredients ▾</div>
+        <div class="ing">${m.ing.map(i=>"• "+i[0]).join("<br>")}</div>
+      </div>`;
+    // tap hero/pick to select
+    el.querySelector(".hero").onclick = ()=>{
+      if(on){ selected = selected.filter(x=>x!==m.id); } else { selected.push(m.id); }
+      save(); renderMeals(); renderList(); updateCount();
+    };
+    const tog = el.querySelector(".toggle-ing"), ing = el.querySelector(".ing");
+    tog.onclick = ()=>{ ing.classList.toggle("open"); tog.textContent = ing.classList.contains("open")?"Ingredients ▴":"Ingredients ▾"; };
+    c.appendChild(el);
+  });
+}
+
+function buildShopping(){
+  // gather ingredients from selected meals, de-dupe, keep category
+  const map = {}; // name -> cat
+  selected.forEach(id=>{ const m = MEALS.find(x=>x.id===id); if(m) m.ing.forEach(([n,ct])=>{ map[n]=ct; }); });
+  STAPLES.forEach(([n,ct])=>{ map[n]=ct; });
+  // group by category
+  const groups = { Proteins:[], "Grains / Carbs":[], Produce:[], "Pantry / Flavor":[] };
+  Object.keys(map).forEach(n=>{ groups[CAT[map[n]]].push(n); });
+  for(const k in groups) groups[k].sort();
+  return groups;
+}
 
 function renderList(){
-  const c = document.getElementById("listContainer"); c.innerHTML = "";
-  for (const cat in LIST){
-    const h = document.createElement("div"); h.className="cat"; h.textContent=cat; c.appendChild(h);
-    LIST[cat].forEach(name=>{
-      const id = cat+"|"+name;
-      const row = document.createElement("div"); row.className="item"+(checked[id]?" done":"");
-      row.innerHTML = `<div class="box">${checked[id]?"✓":""}</div><div class="label">${name}</div>`;
-      row.onclick = ()=>{ checked[id]=!checked[id]; localStorage.setItem(KEY,JSON.stringify(checked)); renderList(); };
+  const c = document.getElementById("listContainer"); c.innerHTML="";
+  if(selected.length===0){ c.innerHTML = `<div class="empty">No meals selected yet.<br>Go to the Meals tab and tap the + on the meals you want this week.</div>`; return; }
+  const groups = buildShopping();
+  for(const cat in groups){
+    if(groups[cat].length===0) continue;
+    const h=document.createElement("div"); h.className="cat"; h.textContent=cat; c.appendChild(h);
+    groups[cat].forEach(name=>{
+      const id=cat+"|"+name;
+      const row=document.createElement("div"); row.className="item"+(checked[id]?" done":"");
+      row.innerHTML=`<div class="box">${checked[id]?"✓":""}</div><div class="label">${name}</div>`;
+      row.onclick=()=>{ checked[id]=!checked[id]; save(); renderList(); };
       c.appendChild(row);
     });
   }
 }
-document.getElementById("resetBtn").onclick = ()=>{ checked={}; localStorage.setItem(KEY,"{}"); renderList(); };
-document.querySelectorAll(".tab").forEach(t=>{
-  t.onclick = ()=>{
-    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-    document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
-    t.classList.add("active");
-    document.getElementById(t.dataset.v).classList.add("active");
-  };
-});
-renderList();
 
-// register service worker for offline / installability
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+function updateCount(){ document.getElementById("selCount").textContent = selected.length; }
+
+document.getElementById("clearSel").onclick = ()=>{ selected=[]; save(); renderMeals(); renderList(); updateCount(); };
+document.getElementById("resetChecks").onclick = ()=>{ checked={}; save(); renderList(); };
+document.querySelectorAll(".tab").forEach(t=>{
+  t.onclick=()=>{ document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+    t.classList.add("active"); document.getElementById(t.dataset.v).classList.add("active"); };
+});
+
+renderMeals(); renderList(); updateCount();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
 </html>
